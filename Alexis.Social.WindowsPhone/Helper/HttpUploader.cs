@@ -8,6 +8,7 @@ using Alexis.WindowsPhone.Social.Tencent;
 using Alexis.WindowsPhone.Social.Renren;
 using Alexis.WindowsPhone.Social.Weibo;
 using System.Text;
+using System.Diagnostics;
 
 namespace Alexis.WindowsPhone.Social.Helper
 {
@@ -49,6 +50,9 @@ namespace Alexis.WindowsPhone.Social.Helper
                 HttpWebResponse response = (HttpWebResponse)request.EndGetResponse(asynchronousResult);
                 Stream streamResponse = response.GetResponseStream();
                 StreamReader streamRead = new StreamReader(streamResponse);
+#if DEBUG
+                Debug.WriteLine("Response Result: " +streamRead.ReadToEnd());
+#endif
                 #region parse the content
                 #endregion
                 try

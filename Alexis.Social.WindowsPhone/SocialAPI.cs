@@ -189,6 +189,135 @@ namespace Alexis.WindowsPhone.Social
             });
         }
 
+
+        /// <summary>
+        ///  send with params  share 56 video
+        ///  created by lulee007 2014-6-13
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="status"></param>
+        /// <param name="imgPath"></param>
+        /// <param name="action"></param>
+        public static void UploadStatusWithParams(SocialType type, Dictionary<string, object> parameters , Action<bool, Exception> action)
+        {
+            HttpUploader uploader = new HttpUploader();
+            uploader.parameters = new Dictionary<string, object>();
+            switch (type)
+            {
+                case SocialType.Weibo:
+                    {
+                        uploader.url = "https://api.weibo.com/2/statuses/upload.json";
+                        object status = null;
+                        parameters.TryGetValue("status", out status);
+                        uploader.parameters.Add("status",status.ToString());
+                        uploader.parameters.Add("access_token", WeiboAccessToken.Token);
+                    }
+                    break;
+                case SocialType.Tencent:
+                    {
+                        uploader.url = "https://open.t.qq.com/api/t/add_pic";
+                        uploader.parameters.Add("oauth_consumer_key", Client.ClientId);
+                        uploader.parameters.Add("access_token", TencentAccessToken.Token);
+                        uploader.parameters.Add("openid", TencentAccessToken.OpenId);
+                        uploader.parameters.Add("oauth_version", "2.a");
+                        uploader.parameters.Add("scope", "all");
+                        uploader.parameters.Add("format", "json");
+                        object status = null;
+                        parameters.TryGetValue("status", out status);
+                        uploader.parameters.Add("content", status.ToString());
+                        
+                    }
+                    break;
+                case SocialType.Renren:
+                    {
+                        parameters.Add("access_token", RenrenAccessToken.Token);
+                        string paramString = "?";
+                        foreach(string key in parameters.Keys)
+                        {
+                            paramString+=key+"="+parameters[key].ToString()+"&";
+                        }
+
+                        uploader.url = string.Format("https://api.renren.com/v2/share/url/put" + paramString);
+
+                    }
+                    break;
+                case SocialType.QZone:
+                    {
+                        uploader.url = "https://graph.qq.com/share/add_share";
+                        object status = null;
+                        parameters.TryGetValue("status", out status);
+                        uploader.parameters.Add("title", status.ToString());
+                        uploader.parameters.Add("oauth_consumer_key", Client.ClientId);
+                        uploader.parameters.Add("format", "json");
+                    }
+                    break;
+                case SocialType.Twitter:
+                    {
+                        uploader.url = "https://api.twitter.com/1.1/statuses/update_with_media";
+                        object status = null;
+                        parameters.TryGetValue("status", out status);
+                        uploader.parameters.Add("status", status.ToString());
+
+                    }
+                    break;
+                case SocialType.Facebook:
+                    {
+
+                    }
+                    break;
+                case SocialType.Douban:
+                    break;
+                case SocialType.Net:
+                    break;
+                case SocialType.Sohu:
+                    break;
+                default:
+                    break;
+            }
+
+            using (var store = IsolatedStorageFile.GetUserStoreForApplication())
+            {
+                object img = null; 
+                string imgPath ="";
+
+                if (parameters.TryGetValue("imgPath", out img))
+                    imgPath = img.ToString();
+                if (store.FileExists(imgPath))
+                {
+                    using (var stream = store.OpenFile(imgPath, FileMode.Open, FileAccess.Read))
+                    {
+                        byte[] bytes = new byte[stream.Length];
+                        stream.Read(bytes, 0, bytes.Length);
+                        if (type == SocialType.Renren)
+                        {
+                            uploader.parameters.Add("upload", bytes);
+                        }
+                        else
+                        {
+                            uploader.parameters.Add("pic", bytes);
+                        }
+                    }
+                }
+                else
+                {
+                    //image do not exists
+                    //TODO
+                }
+            }
+            uploader.Submit();
+            uploader.UploadCompleted += (e1, e2) =>
+            {
+                if (e1 is string && e1.ToString() == "ok")
+                {
+                    action(true, null);
+                }
+                else
+                {
+                    action(false, e1 as Exception);
+                }
+            };
+        }
+
         /// <summary>
         /// send status with image
         /// </summary>
@@ -223,7 +352,7 @@ namespace Alexis.WindowsPhone.Social
                     break;
                 case SocialType.Renren:
                     {
-                        uploader.url = "http://api.renren.com/restserver.do";
+                        uploader.url = "https://api.renren.com/v2/share/url/put";
                         uploader.parameters.Add("method", "photos.upload");
                         uploader.parameters.Add("v", "1.0");
                         uploader.parameters.Add("access_token", RenrenAccessToken.Token);
