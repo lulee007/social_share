@@ -51,7 +51,15 @@ namespace Alexis.WindowsPhone.Social
         /// <summary>
         /// facebook
         /// </summary>
-        Facebook
+        Facebook,
+        /// <summary>
+        /// 微信会话
+        /// </summary>
+        WeChatMsg,
+        /// <summary>
+        /// 微信朋友圈
+        /// </summary>
+        WeChatCircle
     }
 
     public class SocialAPI
@@ -270,6 +278,10 @@ namespace Alexis.WindowsPhone.Social
                 case SocialType.Net:
                     break;
                 case SocialType.Sohu:
+                    break;
+                case SocialType.WeChatCircle:
+                    break;
+                case SocialType.WeChatMsg:
                     break;
                 default:
                     break;

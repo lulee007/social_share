@@ -51,5 +51,21 @@ namespace Alexis.WindowsPhone.Social
                 TypeSelected(SocialType.QZone);
             }
         }
+
+        private void btnWeChatCircle_Click(object sender, RoutedEventArgs e)
+        {
+            if (TypeSelected != null)
+            {
+                TypeSelected(SocialType.WeChatCircle);
+            }
+        }
+
+        private void btnWeChatFriend_Click(object sender, RoutedEventArgs e)
+        {
+            if (TypeSelected != null)
+            {
+                TypeSelected(SocialType.WeChatMsg);
+            }
+        }
     }
 }
