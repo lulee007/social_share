@@ -73,16 +73,16 @@
         <!--<Button x:Name="btnTencent" Grid.Row="1" Grid.Column="1" Click="btnTencent_Click" Style="{StaticResource S_Button}">
             <Image Source="/Alexis.WindowsPhone.Social;component/Images/tencent.png" />
         </Button>-->
-        <Button x:Name="btnRenren" Grid.Row="1" Grid.Column="2" Click="btnRenren_Click" Style="{StaticResource S_Button}">
+        <Button x:Name="btnRenren" Grid.Row="1" Grid.Column="1" Click="btnRenren_Click" Style="{StaticResource S_Button}">
             <Image Source="/Alexis.WindowsPhone.Social;component/Images/renren.png"/>
         </Button>
-        <Button x:Name="btnQZone" Grid.Row="1" Grid.Column="1" Click="btnQZone_Click" Style="{StaticResource S_Button}">
+        <!--<Button x:Name="btnQZone" Grid.Row="1" Grid.Column="1" Click="btnQZone_Click" Style="{StaticResource S_Button}">
             <Image Source="/Alexis.WindowsPhone.Social;component/Images/qzone.png" />
-        </Button>
-        <Button x:Name="btnWeChatCircle" Grid.Row="2" Grid.Column="0" Click="btnWeChatCircle_Click" Style="{StaticResource S_Button}">
+        </Button>-->
+        <Button x:Name="btnWeChatCircle" Grid.Row="1" Grid.Column="2" Click="btnWeChatCircle_Click" Style="{StaticResource S_Button}">
             <Image Source="/Images/wechat_circle.png" />
         </Button>
-        <Button x:Name="btnWeChatFriend" Grid.Row="2" Grid.Column="1" Click="btnWeChatFriend_Click" Style="{StaticResource S_Button}">
+        <Button x:Name="btnWeChatFriend" Grid.Row="2" Grid.Column="0" Click="btnWeChatFriend_Click" Style="{StaticResource S_Button}">
             <Image Source="/Images/wechat_friend.png" />
         </Button>
     </Grid>
