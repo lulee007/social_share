@@ -4,6 +4,7 @@ using System.Windows;
 using System.Text;
 using System.Runtime.Serialization.Json;
 using Alexis.WindowsPhone.Social.Helper;
+using System.Diagnostics;
 
 namespace Alexis.WindowsPhone.Social
 {
@@ -136,6 +137,7 @@ namespace Alexis.WindowsPhone.Social
                 }
                 catch (WebException ex)
                 {
+                    Debug.WriteLine(ex.ToString());
                     return;
                 }
                 if (httpWebResponse != null)

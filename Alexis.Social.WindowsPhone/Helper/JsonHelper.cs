@@ -58,7 +58,7 @@ namespace Alexis.WindowsPhone.Social
                     }
                 }
             }
-            catch (Exception e)
+            catch 
             {
                 temObject = null;
             }
